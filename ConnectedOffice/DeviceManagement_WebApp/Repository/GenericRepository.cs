@@ -44,4 +44,4 @@ namespace DeviceManagement_WebApp.Repository
     }
 }
 
-}
+
