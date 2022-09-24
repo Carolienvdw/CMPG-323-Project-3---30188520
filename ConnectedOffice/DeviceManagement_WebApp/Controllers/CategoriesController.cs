@@ -22,37 +22,26 @@ namespace DeviceManagement_WebApp.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        // GET: Categories
+        // GET: Categories:  Get all categories
         public async Task<IActionResult> Index()
         {
             return View(_categoryRepository.GetAll());
         }
 
-        // GET: Categories/Details/5
+        // GET: Categories/Details/5: Show the details of the category
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return View(category);
+            return View(_categoryRepository.GetById(id));
         }
 
-        // GET: Categories/Create
+        // GET: Categories/Create: Takes you to where you can create a new category
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: Categories/Create:  Creates a new category
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -60,28 +49,20 @@ namespace DeviceManagement_WebApp.Controllers
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
             category.CategoryId = Guid.NewGuid();
-            _context.Add(category);
+            _categoryRepository.Add(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Edit/5
+        // GET: Categories/Edit/5: Takes you to where you can edit the category
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = _categoryRepository.GetById(id);
             return View(category);
         }
 
-        // POST: Categories/Edit/5
+        // POST: Categories/Edit/5: Let you edit the category
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -111,31 +92,22 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Delete/5
+        // GET: Categories/Delete/5:  Takes you to where you can delete the category
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (category == null)
-            {
-                return NotFound();
-            }
+            var category = _categoryRepository.GetById(id);
 
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Categories/Delete/5  Let you edit the category
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var category = await _context.Category.FindAsync(id);
-            _context.Category.Remove(category);
+            var category = _categoryRepository.GetById(id);
+            _categoryRepository.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

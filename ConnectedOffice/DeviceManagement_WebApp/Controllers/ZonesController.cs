@@ -57,7 +57,7 @@ namespace DeviceManagement_WebApp.Controllers
             
         }
 
-        // GET: Zones/Edit/5 : Get zone by id to edit it
+        // GET: Zones/Edit/5 : Takes you to where you can edit the zone
         public async Task<IActionResult> Edit(Guid? id)
         {
            
@@ -97,7 +97,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Zones/Delete/5 Get zone by ID to delete it
+        // GET: Zones/Delete/5 Takes you to where you can delete the zone
         public async Task<IActionResult> Delete(Guid? id)
         {
 
