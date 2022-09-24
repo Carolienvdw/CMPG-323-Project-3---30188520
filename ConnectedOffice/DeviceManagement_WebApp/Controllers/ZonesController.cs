@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
+using System.Linq.Expressions;
 
 namespace DeviceManagement_WebApp.Controllers
 {
@@ -22,28 +23,16 @@ namespace DeviceManagement_WebApp.Controllers
             _zoneRepository = zoneRepository;
         }
 
-        // GET: Zones
+        // GET: Zones : Return all zones
         public async Task<IActionResult> Index()
         {
             return View(_zoneRepository.GetAll());
         }
 
-        // GET: Zones/Details/5
+        // GET: Zones/Details/5: Return Zone by ID
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var zone = await _context.Zone
-                .FirstOrDefaultAsync(m => m.ZoneId == id);
-            if (zone == null)
-            {
-                return NotFound();
-            }
-
-            return View(zone);
+            return View(_zoneRepository.GetById(id));
         }
 
         // GET: Zones/Create
@@ -59,26 +48,20 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
         {
+            
             zone.ZoneId = Guid.NewGuid();
-            _context.Add(zone);
+            _zoneRepository.Add(zone);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+            
         }
 
-        // GET: Zones/Edit/5
+        // GET: Zones/Edit/5 : Get zone by id to edit it
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var zone = await _context.Zone.FindAsync(id);
-            if (zone == null)
-            {
-                return NotFound();
-            }
+           
+            var zone = _zoneRepository.GetById(id);
             return View(zone);
         }
 
@@ -114,31 +97,22 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Zones/Delete/5
+        // GET: Zones/Delete/5 Get zone by ID to delete it
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var zone = await _context.Zone
-                .FirstOrDefaultAsync(m => m.ZoneId == id);
-            if (zone == null)
-            {
-                return NotFound();
-            }
+            var zone = _zoneRepository.GetById(id);
 
             return View(zone);
         }
 
-        // POST: Zones/Delete/5
+        // POST: Zones/Delete/5 : This deletes a zone
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var zone = await _context.Zone.FindAsync(id);
-            _context.Zone.Remove(zone);
+            var zone = _zoneRepository.GetById(id);
+            _zoneRepository.Remove(zone);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
