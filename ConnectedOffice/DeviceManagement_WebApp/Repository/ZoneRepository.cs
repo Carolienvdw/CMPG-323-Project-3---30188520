@@ -16,7 +16,12 @@ namespace DeviceManagement_WebApp.Repository
             zone.ZoneId = Guid.NewGuid();
             return zone;
         }
-        
+
+        //Checks if a zone exists
+        public bool ZoneExists(Guid? id)
+        {
+            return _context.Zone.Any(e => e.ZoneId == id);
+        }
 
 
     }

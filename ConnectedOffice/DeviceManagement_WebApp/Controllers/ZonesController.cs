@@ -14,12 +14,11 @@ namespace DeviceManagement_WebApp.Controllers
 {
     public class ZonesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
+        
         private readonly IZoneRepository _zoneRepository;
 
-        public ZonesController(ConnectedOfficeContext context, IZoneRepository zoneRepository)
+        public ZonesController( IZoneRepository zoneRepository)
         {
-            _context = context;
             _zoneRepository = zoneRepository;
         }
 
@@ -41,7 +40,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View();
         }
 
-        // POST: Zones/Create
+        // POST: Zones/Create: Creating the data in the database.
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -74,7 +73,7 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
         {
-            if (id != zone.ZoneId)
+            if (! _zoneRepository.ZoneExists(id))
             {
                 return NotFound();
             }
@@ -82,19 +81,12 @@ namespace DeviceManagement_WebApp.Controllers
 
             try
             {
-                _context.Update(zone);
-                await _context.SaveChangesAsync();
+                _zoneRepository.Edit(zone);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ZoneExists(zone.ZoneId))
-                {
-                    return NotFound();
-                }
-                else
-                {
+                
                     throw;
-                }
             }
             return RedirectToAction(nameof(Index));
 
@@ -120,10 +112,5 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ZoneExists(Guid id)
-        {
-            return _context.Zone.Any(e => e.ZoneId == id);
-            
-        }
     }
 }

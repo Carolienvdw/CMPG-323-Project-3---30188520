@@ -101,14 +101,7 @@ namespace DeviceManagement_WebApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_deviceRepository.DeviceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
                     throw;
-                }
             }
             return RedirectToAction(nameof(Index));
 

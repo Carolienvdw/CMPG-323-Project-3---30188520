@@ -77,14 +77,7 @@ namespace DeviceManagement_WebApp.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_categoryRepository.CategoryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
             return RedirectToAction(nameof(Index));
         }
