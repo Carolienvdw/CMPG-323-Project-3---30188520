@@ -58,6 +58,8 @@ specific attention to implementing coding principles and design patterns.
 
 -	To logout you only need to select the Logout tab and this will bring you back to the Home tab.
  ![image](https://user-images.githubusercontent.com/88189130/192354556-944f1867-ea7a-4073-8998-36bbd984c3fe.png)
+ 
+ - If you tried to view, edit, delete or add any information and it seems as if nothing has happend, try to reload the page. Sometimes the page only needs to be refreshed to see the your changes.
 
 
 
