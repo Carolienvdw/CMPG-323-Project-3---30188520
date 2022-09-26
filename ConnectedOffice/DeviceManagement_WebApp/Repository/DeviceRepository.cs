@@ -22,21 +22,26 @@ namespace DeviceManagement_WebApp.Repository
             return connectedOfficeContext.ToList();
         }
 
+        //Checks if a device exists
         public bool DeviceExists(Guid? id)
         {
             return _context.Device.Any(e => e.DeviceId == id);
         }
 
+
+        //Gives access to the Category information
         public IEnumerable<Category> catInfo()
         {
             return _context.Category.ToList();
         }
 
+        //Gives access to the Zone information
         public IEnumerable<Zone> zoneInfo()
         {
             return _context.Zone.ToList();
         }
 
+        //Creats a new id for a new device
         public Device CreateID(Device device)
         {
             device.DeviceId = Guid.NewGuid();

@@ -13,16 +13,15 @@ namespace DeviceManagement_WebApp.Controllers
 {
     public class DevicesController : Controller
     {
-       // private readonly ConnectedOfficeContext _context;
+       
         private readonly IDeviceRepository _deviceRepository;
 
         public DevicesController( IDeviceRepository deviceRepository)
         {
-            //_context = context;
             _deviceRepository = deviceRepository;
         }
 
-        // GET: Devices:  Retrieves all devices as wel as their category and zone id's
+        // GET: Devices:  Retrieves all devices as well as their category and zone id's
         public async Task<IActionResult> Index()
         {
             return View(_deviceRepository.includeZoneCategory());
@@ -50,7 +49,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View();
         }
 
-        // POST: Devices/Create: Creating the data in the database. Needs Create method
+        // POST: Devices/Create: Creating the data in the database.
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

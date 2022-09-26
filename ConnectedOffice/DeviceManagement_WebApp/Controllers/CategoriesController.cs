@@ -13,12 +13,11 @@ namespace DeviceManagement_WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ConnectedOfficeContext _context;
+       
         private readonly ICategoryRepository _categoryRepository;
 
-        public CategoriesController(ConnectedOfficeContext context, ICategoryRepository categoryRepository)
+        public CategoriesController( ICategoryRepository categoryRepository)
         {
-            _context = context;
             _categoryRepository = categoryRepository;
         }
 
@@ -31,7 +30,6 @@ namespace DeviceManagement_WebApp.Controllers
         // GET: Categories/Details/5: Show the details of the category
         public async Task<IActionResult> Details(Guid? id)
         {
-
             return View(_categoryRepository.GetById(id));
         }
 
@@ -48,9 +46,9 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            category.CategoryId = Guid.NewGuid();
+            _categoryRepository.CreateID(category);
             _categoryRepository.Add(category);
-            await _context.SaveChangesAsync();
+          
             return RedirectToAction(nameof(Index));
         }
 
@@ -69,18 +67,17 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("CategoryId,CategoryName,CategoryDescription,DateCreated")] Category category)
         {
-            if (id != category.CategoryId)
+            if (!_categoryRepository.CategoryExists(id))
             {
                 return NotFound();
             }
             try
             {
-                _context.Update(category);
-                await _context.SaveChangesAsync();
+                _categoryRepository.Edit(category);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(category.CategoryId))
+                if (!_categoryRepository.CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -92,10 +89,9 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Delete/5:  Get category by id
+        // GET: Categories/Delete/5:  Get category by id to be deleted
         public async Task<IActionResult> Delete(Guid? id)
         {
-
             var category = _categoryRepository.GetById(id);
 
             return View(category);
@@ -108,13 +104,10 @@ namespace DeviceManagement_WebApp.Controllers
         {
             var category = _categoryRepository.GetById(id);
             _categoryRepository.Remove(category);
-            await _context.SaveChangesAsync();
+           
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(Guid id)
-        {
-            return _context.Category.Any(e => e.CategoryId == id);
-        }
+       
     }
 }
