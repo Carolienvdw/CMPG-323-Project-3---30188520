@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
 using DeviceManagement_WebApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DeviceManagement_WebApp.Controllers
 {
+    //Ensures that a person must login first before he can edit anything
+    [Authorize]
     public class CategoriesController : Controller
     {
        
