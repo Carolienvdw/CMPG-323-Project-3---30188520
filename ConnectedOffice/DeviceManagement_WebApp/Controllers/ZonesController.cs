@@ -78,6 +78,7 @@ namespace DeviceManagement_WebApp.Controllers
             {
                 return NotFound();
             }
+            
 
             try
             {
@@ -115,13 +116,14 @@ namespace DeviceManagement_WebApp.Controllers
         {
             var zone = _zoneRepository.GetById(id);
             _zoneRepository.Remove(zone);
-            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
         private bool ZoneExists(Guid id)
         {
             return _context.Zone.Any(e => e.ZoneId == id);
+            
         }
     }
 }

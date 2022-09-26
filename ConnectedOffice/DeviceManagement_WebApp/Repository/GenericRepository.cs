@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System;
 using DeviceManagement_WebApp.Data;
 using System.Linq;
+using DeviceManagement_WebApp.Models;
 
 namespace DeviceManagement_WebApp.Repository
 {
@@ -18,6 +19,12 @@ namespace DeviceManagement_WebApp.Repository
             _context.Set<T>().Add(entity);
             _context.SaveChangesAsync();
             
+        }
+
+        public void Edit(T entity)
+        {
+            _context.Set<T>().Update(entity);
+            _context.SaveChangesAsync();
         }
         public void AddRange(IEnumerable<T> entities)
         {
@@ -38,6 +45,7 @@ namespace DeviceManagement_WebApp.Repository
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
+            _context.SaveChangesAsync();
         }
         public void RemoveRange(IEnumerable<T> entities)
         {

@@ -16,7 +16,7 @@ namespace DeviceManagement_WebApp.Repository
             zone.ZoneId = Guid.NewGuid();
             return zone;
         }
-
+        
 
 
     }
