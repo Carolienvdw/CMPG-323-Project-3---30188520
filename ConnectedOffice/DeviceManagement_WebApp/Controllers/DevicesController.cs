@@ -52,7 +52,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(device);
         }
 
-        // GET: Devices/Create
+        // GET: Devices/Create: It renders the view
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
@@ -60,7 +60,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View();
         }
 
-        // POST: Devices/Create
+        // POST: Devices/Create: Creating the data in the database. Needs Create method
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -75,7 +75,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Devices/Edit/5
+        // GET: Devices/Edit/5: Retrieves singular data based on ID
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -93,7 +93,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(device);
         }
 
-        // POST: Devices/Edit/5
+        // POST: Devices/Edit/5 Let you edit the device on the database
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -124,7 +124,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Devices/Delete/5
+        // GET: Devices/Delete/5: Get device by id
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -144,7 +144,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(device);
         }
 
-        // POST: Devices/Delete/5
+        // POST: Devices/Delete/5: Let you delete a device
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

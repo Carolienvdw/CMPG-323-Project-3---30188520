@@ -35,7 +35,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(_categoryRepository.GetById(id));
         }
 
-        // GET: Categories/Create: Takes you to where you can create a new category
+        // GET: Categories/Create: It renders the view
         public IActionResult Create()
         {
             return View();
@@ -54,7 +54,7 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Edit/5: Takes you to where you can edit the category
+        // GET: Categories/Edit/5: Retrieves singular data based on ID
         public async Task<IActionResult> Edit(Guid? id)
         {
 
@@ -62,7 +62,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(category);
         }
 
-        // POST: Categories/Edit/5: Let you edit the category
+        // POST: Categories/Edit/5: Let you edit the category on the database
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -92,7 +92,7 @@ namespace DeviceManagement_WebApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Categories/Delete/5:  Takes you to where you can delete the category
+        // GET: Categories/Delete/5:  Get category by id
         public async Task<IActionResult> Delete(Guid? id)
         {
 
@@ -101,7 +101,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5  Let you edit the category
+        // POST: Categories/Delete/5  Let you delete the category
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

@@ -1,5 +1,6 @@
 ﻿using DeviceManagement_WebApp.Data;
 using DeviceManagement_WebApp.Models;
+using System;
 using System.Linq;
 
 namespace DeviceManagement_WebApp.Repository
@@ -10,7 +11,14 @@ namespace DeviceManagement_WebApp.Repository
         {
         }
 
-        
+        public Zone CreateID(Zone zone)
+        {
+            zone.ZoneId = Guid.NewGuid();
+            return zone;
+        }
+
+
+
     }
 
 }

@@ -35,7 +35,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(_zoneRepository.GetById(id));
         }
 
-        // GET: Zones/Create
+        // GET: Zones/Create: It renders the view
         public IActionResult Create()
         {
             return View();
@@ -48,16 +48,18 @@ namespace DeviceManagement_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ZoneId,ZoneName,ZoneDescription,DateCreated")] Zone zone)
         {
-            
-            zone.ZoneId = Guid.NewGuid();
+
+            //it creates a new zone id
+            _zoneRepository.CreateID(zone);
+            //Creates a new zone
             _zoneRepository.Add(zone);
-            await _context.SaveChangesAsync();
+            
 
             return RedirectToAction(nameof(Index));
             
         }
 
-        // GET: Zones/Edit/5 : Takes you to where you can edit the zone
+        // GET: Zones/Edit/5 : Retrieves singular data based on ID
         public async Task<IActionResult> Edit(Guid? id)
         {
            
@@ -65,7 +67,7 @@ namespace DeviceManagement_WebApp.Controllers
             return View(zone);
         }
 
-        // POST: Zones/Edit/5
+        // POST: Zones/Edit/5: Let you edit the zone on the database
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -97,7 +99,7 @@ namespace DeviceManagement_WebApp.Controllers
 
         }
 
-        // GET: Zones/Delete/5 Takes you to where you can delete the zone
+        // GET: Zones/Delete/5: Get zone by id
         public async Task<IActionResult> Delete(Guid? id)
         {
 

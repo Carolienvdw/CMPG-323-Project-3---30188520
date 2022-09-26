@@ -16,6 +16,8 @@ namespace DeviceManagement_WebApp.Repository
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
+            _context.SaveChangesAsync();
+            
         }
         public void AddRange(IEnumerable<T> entities)
         {

@@ -4,5 +4,7 @@ namespace DeviceManagement_WebApp.Repository
 {
     public interface IDeviceRepository : IGenericRepository<Device>
     {
+       // Device GetDeviceCategoryZone();
     }
+
 }
