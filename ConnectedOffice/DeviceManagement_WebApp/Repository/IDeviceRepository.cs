@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace DeviceManagement_WebApp.Repository
 {
+    //Here any aditional interface definitions are given for devices
     public interface IDeviceRepository : IGenericRepository<Device>
     {
 

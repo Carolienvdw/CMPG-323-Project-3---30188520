@@ -8,6 +8,8 @@ using System.Linq;
 
 namespace DeviceManagement_WebApp.Repository
 {
+    //This inherits the IDeviceRepository and then implement the interface
+    //Here interface definitions of additional methods are added
     public class DeviceRepository : GenericRepository<Device>, IDeviceRepository
     {
         

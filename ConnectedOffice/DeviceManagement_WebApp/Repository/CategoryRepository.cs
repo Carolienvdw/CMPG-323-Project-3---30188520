@@ -5,6 +5,8 @@ using System.Linq;
 
 namespace DeviceManagement_WebApp.Repository
 {
+    //This inherits the ICategoryRepository and then implement the interface
+    //Here interface definitions of additional methods are added
     public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
     {
         public CategoryRepository(ConnectedOfficeContext context) : base(context)
