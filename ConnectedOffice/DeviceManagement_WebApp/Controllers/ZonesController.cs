@@ -58,7 +58,7 @@ namespace DeviceManagement_WebApp.Controllers
             
 
             return RedirectToAction(nameof(Index));
-            
+
         }
 
         // GET: Zones/Edit/5 : Retrieves singular data based on ID

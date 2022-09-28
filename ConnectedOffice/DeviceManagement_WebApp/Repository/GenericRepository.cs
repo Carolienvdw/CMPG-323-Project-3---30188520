@@ -21,7 +21,7 @@ namespace DeviceManagement_WebApp.Repository
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             
         }
 
@@ -29,7 +29,7 @@ namespace DeviceManagement_WebApp.Repository
         public void Edit(T entity)
         {
             _context.Set<T>().Update(entity);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         //This adds a new range to an entity
@@ -60,7 +60,7 @@ namespace DeviceManagement_WebApp.Repository
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         //This removes a range from an entity
